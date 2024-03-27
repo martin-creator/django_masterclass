@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from movielist_app.models import Movie
+from django.http import JsonResponse
 
-# Create your views here.
+
+def movie_list(request):
+    movies = Movie.objects.all() # get all movies from database in QuerySet. A queryset is a list of objects of a given model
+    data = {"movies": list(movies.values())} # convert QuerySet to list of dictionaries
+    return JsonResponse(data)
