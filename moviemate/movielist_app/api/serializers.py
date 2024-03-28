@@ -42,6 +42,11 @@ class MovieSerializer(serializers.ModelSerializer):
         instance.trailer = validated_data.get('trailer', instance.trailer)
         instance.save()
         return instance
+    
+    def validate_title(self, value):
+        if len(value) < 2:
+            raise serializers.ValidationError('Title is too short')
+        return value
 
 # class MovieSerializer(serializers.ModelSerializer):
 # class meta is a class within a class 
