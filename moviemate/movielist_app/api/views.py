@@ -42,8 +42,8 @@ class WatchDetailAPIView(APIView):
 
 class StreamPlatformListAPIView(APIView):
     def get(self, request):
-        platforms = StreamPlatform.objects.all()
-        serializer = StreamPlatformSerializer(platforms, many=True)
+        platforms = StreamPlatform.objects.all() # returns a queryset
+        serializer = StreamPlatformSerializer(platforms, many=True) # convert queryset to list of dictionaries
         return Response(serializer.data)
     
     def post(self, request):
