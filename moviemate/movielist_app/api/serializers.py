@@ -4,19 +4,25 @@ from movielist_app.models import Movie
 
 
 class MovieSerializer(serializers.ModelSerializer):
+
+    title_length = serializers.SerializerMethodField()
+
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'genre', 'year', 'director', 'plot', 'poster', 'trailer', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'genre', 'year', 'title_length', 'director', 'plot', 'poster', 'trailer', 'created_at', 'updated_at']
 
-        def validate(self, data): # object level validation
-            if data['title'] == data['director']:
-                raise serializers.ValidationError('Title and Director cannot be the same')
-            return data
-    
-        def validate_title(self, value): # field level validation
-            if len(value) < 2:
-                raise serializers.ValidationError('Title is too short')
-            return value
+    def get_title_length(self, obj):
+        return len(obj.title)
+
+    def validate(self, data): # object level validation
+        if data['title'] == data['director']:
+            raise serializers.ValidationError('Title and Director cannot be the same')
+        return data
+
+    def validate_title(self, value): # field level validation
+        if len(value) < 2:
+            raise serializers.ValidationError('Title is too short')
+        return value
 
 
 #     title = models.CharField(max_length=100)
