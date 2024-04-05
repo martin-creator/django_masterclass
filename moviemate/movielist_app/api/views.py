@@ -7,9 +7,12 @@ from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSer
 
 class WatchListCreateAPIView(APIView):
     def get(self, request):
-        movies = WatchList.objects.all()
-        serializer = WatchListSerializer(movies, many=True)
-        return Response(serializer.data)
+        try:
+            movies = WatchList.objects.all()
+            serializer = WatchListSerializer(movies, many=True)
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
     def post(self, request):
         serializer = WatchListSerializer(data=request.data)
@@ -22,9 +25,12 @@ class WatchListCreateAPIView(APIView):
 
 class WatchDetailAPIView(APIView):
     def get(self, request, pk):
-        movie = WatchList.objects.get(pk=pk)
-        serializer = WatchListSerializer(movie)
-        return Response(serializer.data)
+        try:
+            movie = WatchList.objects.get(pk=pk)
+            serializer = WatchListSerializer(movie)
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
     def put(self, request, pk):
         movie = WatchList.objects.get(pk=pk)
@@ -42,9 +48,12 @@ class WatchDetailAPIView(APIView):
 
 class StreamPlatformListAPIView(APIView):
     def get(self, request):
-        platforms = StreamPlatform.objects.all() # returns a queryset
-        serializer = StreamPlatformSerializer(platforms, many=True) # convert queryset to list of dictionaries
-        return Response(serializer.data)
+        try:
+            platforms = StreamPlatform.objects.all()
+            serializer = StreamPlatformSerializer(platforms, many=True)
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
     def post(self, request):
         serializer = StreamPlatformSerializer(data=request.data)
@@ -56,9 +65,12 @@ class StreamPlatformListAPIView(APIView):
 
 class StreamPlatformDetailAPIView(APIView):
     def get(self, request, pk):
-        platform = StreamPlatform.objects.get(pk=pk)
-        serializer = StreamPlatformSerializer(platform)
-        return Response(serializer.data)
+        try:
+            platform = StreamPlatform.objects.get(pk=pk)
+            serializer = StreamPlatformSerializer(platform)
+            return Response(serializer.data)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     
     def put(self, request, pk):
         platform = StreamPlatform.objects.get(pk=pk)
