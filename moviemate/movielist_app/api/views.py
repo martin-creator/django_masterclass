@@ -50,7 +50,7 @@ class StreamPlatformListAPIView(APIView):
     def get(self, request):
         try:
             platforms = StreamPlatform.objects.all()
-            serializer = StreamPlatformSerializer(platforms, many=True)
+            serializer = StreamPlatformSerializer(platforms, many=True, context={'request': request})
             return Response(serializer.data)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
