@@ -12,7 +12,7 @@ urlpatterns = [
     path('<int:pk>/', WatchDetailAPIView.as_view(), name='movie_detail'),
 
     path('stream/', StreamPlatformListAPIView.as_view(), name='stream_list'),
-    path('stream/<int:pk>/', StreamPlatformDetailAPIView.as_view(), name='stream_detail'),
+    path('stream/<int:pk>/', StreamPlatformDetailAPIView.as_view(), name='streamplatform-detail'),
 ]
 
 # we use as_view() method to convert our class-based views into function-based views.
