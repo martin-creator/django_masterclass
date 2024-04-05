@@ -1,6 +1,6 @@
 from django.urls import path, include
 # from movielist_app.api.views import movie_list, movie_detail
-from movielist_app.api.views import MovieListCreateAPIView, MovieDetailAPIView
+from movielist_app.api.views import WatchListCreateAPIView, WatchDetailAPIView, StreamPlatformListAPIView, StreamPlatformDetailAPIView
 
 # urlpatterns = [
 #     path('list/', movie_list, name='movie_list'),
@@ -8,8 +8,11 @@ from movielist_app.api.views import MovieListCreateAPIView, MovieDetailAPIView
 # ]
 
 urlpatterns = [
-    path('list/', MovieListCreateAPIView.as_view(), name='movie_list'),
-    path('<int:pk>/', MovieDetailAPIView.as_view(), name='movie_detail'),
+    path('list/', WatchListCreateAPIView.as_view(), name='movie_list'),
+    path('<int:pk>/', WatchDetailAPIView.as_view(), name='movie_detail'),
+
+    path('stream/', StreamPlatformListAPIView.as_view(), name='stream_list'),
+    path('stream/<int:pk>/', StreamPlatformDetailAPIView.as_view(), name='stream_detail'),
 ]
 
 # we use as_view() method to convert our class-based views into function-based views.
