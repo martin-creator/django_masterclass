@@ -5,14 +5,14 @@ from movielist_app.models import WatchList, StreamPlatform
 
 class WatchListSerializer(serializers.ModelSerializer):
 
-    title_length = serializers.SerializerMethodField()
+    # title_length = serializers.SerializerMethodField()
 
     class Meta:
         model = WatchList
         fields = '__all__'
 
 
-class StreamPlatformSerializer(serializers.ModelSerializer):
+class StreamPlatformSerializer(serializers.HyperlinkedModelSerializer):
 
     watchlist = WatchListSerializer(many=True, read_only=True)
     # Return custom fields in the serializer
