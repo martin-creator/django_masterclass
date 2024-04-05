@@ -12,21 +12,25 @@ from movielist_app.models import Movie
 #     updated_at = models.DateTimeField(auto_now=True)
 
 
+def title_length_validator(value):
+    if len(value) < 2:
+        raise serializers.ValidationError('Title is too short')
+    return value
 
-class MovieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Movie
-        fields = ['id', 'title', 'genre', 'year', 'director', 'plot', 'poster', 'trailer', 'created_at', 'updated_at']
-        # id = serializers.IntegerField(read_only=True)
-        # title = serializers.CharField(max_length=100)
-        # genre = serializers.CharField(max_length=100)
-        # year = serializers.IntegerField()
-        # director = serializers.CharField(max_length=100)
-        # plot = serializers.CharField()
-        # poster = serializers.URLField(max_length=300)
-        # trailer = serializers.URLField(max_length=300)
-        # created_at = serializers.DateTimeField()
-        # updated_at = serializers.DateTimeField()
+class MovieSerializer(serializers.Serializer):
+    # class Meta:
+    #     model = Movie
+    #     fields = ['id', 'title', 'genre', 'year', 'director', 'plot', 'poster', 'trailer', 'created_at', 'updated_at']
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(validators=[title_length_validator])
+    genre = serializers.CharField(max_length=100)
+    year = serializers.IntegerField()
+    director = serializers.CharField(max_length=100)
+    plot = serializers.CharField()
+    poster = serializers.URLField(max_length=300)
+    trailer = serializers.URLField(max_length=300)
+    created_at = serializers.DateTimeField()
+    updated_at = serializers.DateTimeField()
 
     
     def create(self, validated_data):
