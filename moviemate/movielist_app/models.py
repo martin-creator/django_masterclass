@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 class StreamPlatform(models.Model):
@@ -22,6 +22,19 @@ class WatchList(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Review(models.Model):
+    rating = models.PositiveIntegerField(validators=[  MinValueValidator(1), MaxValueValidator(5)])
+    active = models.BooleanField(default=True)
+    watchlist = models.ForeignKey(WatchList, on_delete=models.CASCADE, related_name='reviews')
+    description = models.TextField(max_length=300)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) # The difference between auto_now and auto_now_add is that auto_now will update the field every time the model is saved, while auto_now_add will only set the field when the model is first created.
+
+    def __str__(self):
+        return str(self.rating) + " | " + self.created_at.strftime("%d-%m-%Y") 
+
 
 # class Movie(models.Model):
 #     title = models.CharField(max_length=300)
