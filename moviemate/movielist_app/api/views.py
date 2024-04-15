@@ -8,28 +8,37 @@ from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSer
 
 
 
-class ReviewListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+class ReviewListCreateAPIView(generics.ListCreateAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
-    def get(self, request):
-        return self.list(request)
-    
-    def post(self, request):
-        return self.create(request)
-    
-class ReviewDetailAPIView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+
+class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
-    def get(self, request, pk):
-        return self.retrieve(request)
+# class ReviewListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+#     queryset = Review.objects.all()
+#     serializer_class = ReviewSerializer
+
+#     def get(self, request):
+#         return self.list(request)
     
-    def put(self, request, pk):
-        return self.update(request)
+#     def post(self, request):
+#         return self.create(request)
     
-    def delete(self, request, pk):
-        return self.destroy(request)
+# class ReviewDetailAPIView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+#     queryset = Review.objects.all()
+#     serializer_class = ReviewSerializer
+
+#     def get(self, request, pk):
+#         return self.retrieve(request)
+    
+#     def put(self, request, pk):
+#         return self.update(request)
+    
+#     def delete(self, request, pk):
+#         return self.destroy(request)
     
     
 
