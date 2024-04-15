@@ -59,25 +59,36 @@ class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 #         return self.destroy(request)
     
 
-class StreamPlatformVS(viewsets.ViewSet):
+class StreamPlatformVs(viewsets.ModelViewSet):
+    queryset = StreamPlatform.objects.all()
+    serializer_class = StreamPlatformSerializer
 
-    def list(self, request):
-        queryset = StreamPlatform.objects.all()
-        serializer = StreamPlatformSerializer(queryset, many=True, context={'request': request})
-        return Response(serializer.data)
+
+# class StreamPlatformVS(viewsets.ReadOnlyModelViewSet): # ReadOnlyModelViewSet is used to create a read-only view of the model
+#     queryset = StreamPlatform.objects.all()
+#     serializer_class = StreamPlatformSerializer
+#    # It supports the following actions: list and retrieve
     
-    def create(self, request):
-        serializer = StreamPlatformSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=400)
+
+# class StreamPlatformVS(viewsets.ViewSet):
+
+#     def list(self, request):
+#         queryset = StreamPlatform.objects.all()
+#         serializer = StreamPlatformSerializer(queryset, many=True, context={'request': request})
+#         return Response(serializer.data)
     
-    def retrieve(self, request, pk=None):
-        queryset = StreamPlatform.objects.all()
-        platform = get_object_or_404(queryset, pk=pk)
-        serializer = StreamPlatformSerializer(platform, context={'request': request})
-        return Response(serializer.data)
+#     def create(self, request):
+#         serializer = StreamPlatformSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=400)
+    
+#     def retrieve(self, request, pk=None):
+#         queryset = StreamPlatform.objects.all()
+#         platform = get_object_or_404(queryset, pk=pk)
+#         serializer = StreamPlatformSerializer(platform, context={'request': request})
+#         return Response(serializer.data)
     
     
 
