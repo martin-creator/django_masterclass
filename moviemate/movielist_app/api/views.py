@@ -18,6 +18,19 @@ class ReviewListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, ge
     def post(self, request):
         return self.create(request)
     
+class ReviewDetailAPIView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def get(self, request, pk):
+        return self.retrieve(request)
+    
+    def put(self, request, pk):
+        return self.update(request)
+    
+    def delete(self, request, pk):
+        return self.destroy(request)
+    
     
 
 class StreamPlatformListAPIView(APIView):
