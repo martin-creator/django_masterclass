@@ -7,10 +7,27 @@ from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSer
 
 
 
-
-class ReviewListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Review.objects.all()
+class ReviewCreateAPIView(generics.CreateAPIView):
     serializer_class = ReviewSerializer
+
+    def perform_create(self, serializer):
+        # Get the watchlist id from the URL
+        watchlist_pk = self.kwargs['pk']
+        # Get the watchlist object
+        watchlist = WatchList.objects.get(pk=watchlist_pk)
+        # Set the watchlist object to the review object
+        serializer.save(watchlist=watchlist)
+
+
+class ReviewListCreateAPIView(generics.ListAPIView):
+    # queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    # Override the get_queryset method to filter reviews by stream platform
+    def get_queryset(self):
+        # Get the stream platform id from the URL
+        pk = self.kwargs['pk']
+        return Review.objects.filter(watchlist=pk)
 
 
 class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
