@@ -1,11 +1,24 @@
-from rest_framework import status
+from rest_framework import status, generics, mixins
 # from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from movielist_app.models import WatchList, StreamPlatform
-from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSerializer
+from movielist_app.models import WatchList, StreamPlatform, Review
+from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 
 
+
+
+class ReviewListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def get(self, request):
+        return self.list(request)
+    
+    def post(self, request):
+        return self.create(request)
+    
+    
 
 class StreamPlatformListAPIView(APIView):
     def get(self, request):
