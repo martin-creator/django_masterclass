@@ -1,6 +1,6 @@
 from django.urls import path, include
 # from movielist_app.api.views import movie_list, movie_detail
-from movielist_app.api.views import WatchListCreateAPIView, WatchDetailAPIView, StreamPlatformListAPIView, StreamPlatformDetailAPIView, ReviewListCreateAPIView, ReviewDetailAPIView
+from movielist_app.api.views import WatchListCreateAPIView, WatchDetailAPIView, StreamPlatformListAPIView, StreamPlatformDetailAPIView, ReviewListCreateAPIView, ReviewDetailAPIView, ReviewCreateAPIView
 # urlpatterns = [
 #     path('list/', movie_list, name='movie_list'),
 #     path('<int:pk>/', movie_detail, name='movie_detail'),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('stream/<int:pk>/', StreamPlatformDetailAPIView.as_view(), name='streamplatform-detail'),
 
     # path('review/,', ReviewListCreateAPIView.as_view(), name='review-list'),
+    path('stream/<int:pk>/review/', ReviewCreateAPIView.as_view(), name='review-create'),
     path('stream/<int:pk>/review/', ReviewListCreateAPIView.as_view(), name='review-list'),
     path('stream/review/<int:pk>/', ReviewDetailAPIView.as_view(), name='review-detail')
 ]
