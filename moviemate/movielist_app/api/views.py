@@ -1,6 +1,7 @@
 from rest_framework import status, generics, mixins, viewsets, serializers
 # from rest_framework.decorators import api_view
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from movielist_app.models import WatchList, StreamPlatform, Review
 from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
@@ -35,6 +36,7 @@ class ReviewCreateAPIView(generics.CreateAPIView):
 class ReviewListCreateAPIView(generics.ListAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = [ IsAuthenticatedOrReadOnly ]
 
     # Override the get_queryset method to filter reviews by stream platform
     def get_queryset(self):
@@ -46,6 +48,7 @@ class ReviewListCreateAPIView(generics.ListAPIView):
 class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = [ IsAuthenticated ]
 
 # class ReviewListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
 #     queryset = Review.objects.all()
