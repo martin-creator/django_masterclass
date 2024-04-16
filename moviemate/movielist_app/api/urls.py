@@ -3,15 +3,14 @@ from rest_framework.routers import DefaultRouter
 
 # from movielist_app.api.views import movie_list, movie_detail
 from movielist_app.api.views import (WatchListCreateAPIView, WatchDetailAPIView, StreamPlatformListAPIView, StreamPlatformDetailAPIView, 
-                                     ReviewListCreateAPIView, ReviewDetailAPIView, ReviewCreateAPIView
-                                     , StreamPlatformVS)
+                                     ReviewListCreateAPIView, ReviewDetailAPIView, ReviewCreateAPIView, StreamPlatformVs)
 # urlpatterns = [
 #     path('list/', movie_list, name='movie_list'),
 #     path('<int:pk>/', movie_detail, name='movie_detail'),
 # ]
 
 router = DefaultRouter()
-router.register('stream', StreamPlatformVS, basename='streamplatform')
+router.register('stream', StreamPlatformVs, basename='streamplatform')
 
 urlpatterns = [
     path('list/', WatchListCreateAPIView.as_view(), name='movie_list'),
