@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from movielist_app.models import WatchList, StreamPlatform, Review
 from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from django.shortcuts import get_object_or_404
+from movielist_app.api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
 
 
 
@@ -37,6 +38,7 @@ class ReviewListCreateAPIView(generics.ListAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [ IsAuthenticatedOrReadOnly ]
+    # permission_classes = [ AdminOrReadOnly ] # custom 
 
     # Override the get_queryset method to filter reviews by stream platform
     def get_queryset(self):
@@ -48,7 +50,7 @@ class ReviewListCreateAPIView(generics.ListAPIView):
 class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [ IsAuthenticated ]
+    permission_classes = [ ReviewUserOrReadOnly ] # custom permission
 
 # class ReviewListCreateAPIView(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
 #     queryset = Review.objects.all()
