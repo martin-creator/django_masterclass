@@ -45,7 +45,7 @@ class ReviewCreateAPIView(generics.CreateAPIView):
 class ReviewListCreateAPIView(generics.ListAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [ IsAuthenticatedOrReadOnly ]
+    permission_classes = [ IsAuthenticated ]
     # permission_classes = [ AdminOrReadOnly ] # custom 
 
     # Override the get_queryset method to filter reviews by stream platform
