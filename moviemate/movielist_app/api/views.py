@@ -7,6 +7,8 @@ from movielist_app.models import WatchList, StreamPlatform, Review
 from movielist_app.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from django.shortcuts import get_object_or_404
 from movielist_app.api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from movielist_app.api.throttling import ReviewCreateAPI, ReviewListCreateAPI
 
 
 
@@ -43,6 +45,7 @@ class ReviewCreateAPIView(generics.CreateAPIView):
 
 
 class ReviewListCreateAPIView(generics.ListAPIView):
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [ IsAuthenticated ]
@@ -56,6 +59,7 @@ class ReviewListCreateAPIView(generics.ListAPIView):
 
 
 class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [ ReviewUserOrReadOnly ] # custom permission
