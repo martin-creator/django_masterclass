@@ -12,3 +12,7 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
+
+# Access token lives for 5 minutes
+# Refresh token lives for 1 day
+# We need to send the refresh token to get a new access token
