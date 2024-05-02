@@ -37,7 +37,7 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True) # The difference between auto_now and auto_now_add is that auto_now will update the field every time the model is saved, while auto_now_add will only set the field when the model is first created.
 
     def __str__(self):
-        return str(self.rating) + " | " + self.created_at.strftime("%d-%m-%Y") + " | " + self.watchlist.title
+        return str(self.rating) + " | " + self.created_at.strftime("%d-%m-%Y") + " | " + self.watchlist.title + " | " + str(self.review_user)
 
 
 # class Movie(models.Model):
