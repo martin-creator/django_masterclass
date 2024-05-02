@@ -15,6 +15,7 @@ from movielist_app.api.throttling import ReviewCreateAPI, ReviewListCreateAPI
 
 class ReviewCreateAPIView(generics.CreateAPIView):
     serializer_class = ReviewSerializer
+    throttle_classes = [ReviewCreateAPI, AnonRateThrottle]
 
     def get_queryset(self):
         return Review.objects.all()
@@ -45,7 +46,7 @@ class ReviewCreateAPIView(generics.CreateAPIView):
 
 
 class ReviewListCreateAPIView(generics.ListAPIView):
-    throttle_classes = [UserRateThrottle, AnonRateThrottle]
+    throttle_classes = [UserRateThrottle, AnonRateThrottle, ReviewListCreateAPI]
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [ IsAuthenticated ]
