@@ -87,6 +87,7 @@ class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class StreamPlatformVs(viewsets.ModelViewSet):
     queryset = StreamPlatform.objects.all()
     serializer_class = StreamPlatformSerializer
+    permission_classes = [AdminOrReadOnly]
 
 
 # class StreamPlatformVS(viewsets.ReadOnlyModelViewSet): # ReadOnlyModelViewSet is used to create a read-only view of the model
@@ -118,6 +119,9 @@ class StreamPlatformVs(viewsets.ModelViewSet):
     
 
 class StreamPlatformListAPIView(APIView):
+
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request):
         try:
             platforms = StreamPlatform.objects.all()
@@ -138,6 +142,9 @@ class StreamPlatformListAPIView(APIView):
     
 
 class StreamPlatformDetailAPIView(APIView):
+
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request, pk):
         try:
             platform = StreamPlatform.objects.get(pk=pk)
@@ -163,6 +170,9 @@ class StreamPlatformDetailAPIView(APIView):
 
 
 class WatchListCreateAPIView(APIView):
+
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request):
         try:
             movies = WatchList.objects.all()
@@ -181,6 +191,9 @@ class WatchListCreateAPIView(APIView):
 
 
 class WatchDetailAPIView(APIView):
+
+    permission_classes = [AdminOrReadOnly]
+
     def get(self, request, pk):
         try:
             movie = WatchList.objects.get(pk=pk)
