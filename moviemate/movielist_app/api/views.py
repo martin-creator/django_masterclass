@@ -11,7 +11,12 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from movielist_app.api.throttling import ReviewCreateAPI, ReviewListCreateAPI
 
 
+class UserReview(generics.ListAPIView):
+    serializer_class = ReviewSerializer
 
+    def get_queryset(self):
+        username = self.kwargs['username']
+        return Review.objects.filter(review_username=username)
 
 class ReviewCreateAPIView(generics.CreateAPIView):
     serializer_class = ReviewSerializer
