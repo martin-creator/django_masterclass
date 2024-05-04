@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 # from movielist_app.api.views import movie_list, movie_detail
 from movielist_app.api.views import (WatchListCreateAPIView, WatchDetailAPIView, StreamPlatformListAPIView, StreamPlatformDetailAPIView, 
-                                     ReviewListCreateAPIView, ReviewDetailAPIView, ReviewCreateAPIView, StreamPlatformVs)
+                                     ReviewListCreateAPIView, ReviewDetailAPIView, ReviewCreateAPIView, StreamPlatformVs, UserReview)
 # urlpatterns = [
 #     path('list/', movie_list, name='movie_list'),
 #     path('<int:pk>/', movie_detail, name='movie_detail'),
@@ -23,7 +23,9 @@ urlpatterns = [
     # path('review/,', ReviewListCreateAPIView.as_view(), name='review-list'),
     path('stream/<int:pk>/review/', ReviewCreateAPIView.as_view(), name='review-create'),
     path('stream/<int:pk>/review/', ReviewListCreateAPIView.as_view(), name='review-list'),
-    path('stream/review/<int:pk>/', ReviewDetailAPIView.as_view(), name='review-detail')
+    path('stream/review/<int:pk>/', ReviewDetailAPIView.as_view(), name='review-detail'),
+
+    path('stream/review/<str:username>/', UserReview.as_view(), name='user-review-detail'),
 ]
 
 # we use as_view() method to convert our class-based views into function-based views.
