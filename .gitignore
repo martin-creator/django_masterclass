@@ -140,6 +140,7 @@ ENV/
 env.bak/
 venv.bak/
 movienv/
+taskenv/
 
 # Spyder project settings
 .spyderproject
