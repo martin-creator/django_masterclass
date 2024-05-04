@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'movielist_app',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
