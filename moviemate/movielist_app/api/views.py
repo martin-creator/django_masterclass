@@ -9,13 +9,20 @@ from django.shortcuts import get_object_or_404
 from movielist_app.api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from movielist_app.api.throttling import ReviewCreateAPI, ReviewListCreateAPI
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+from movielist_app.api.pagination import WatchListPagination
 
 
 class UserReview(generics.ListAPIView):
     serializer_class = ReviewSerializer
 
+    # def get_queryset(self):
+    #     username = self.kwargs['username']
+    #     return Review.objects.filter(review_username=username)
+
     def get_queryset(self):
-        username = self.kwargs['username']
+        username = self.request.query_params.get('username', None)
         return Review.objects.filter(review_username=username)
 
 class ReviewCreateAPIView(generics.CreateAPIView):
@@ -56,6 +63,13 @@ class ReviewListCreateAPIView(generics.ListAPIView):
     serializer_class = ReviewSerializer
     permission_classes = [ IsAuthenticated ]
     # permission_classes = [ AdminOrReadOnly ] # custom 
+    # filter_backends = [DjangoFilterBackend]
+    # filter_backends = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['username', 'active']
+    ordering_fields = ['rating', 'review_user', 'active']
+
+    # filterset_fields = ['review_user__username', 'active']
 
     # Override the get_queryset method to filter reviews by stream platform
     def get_queryset(self):
@@ -182,6 +196,7 @@ class StreamPlatformDetailAPIView(APIView):
 class WatchListCreateAPIView(APIView):
 
     permission_classes = [AdminOrReadOnly]
+    pagination_class = WatchListPagination
 
     def get(self, request):
         try:
