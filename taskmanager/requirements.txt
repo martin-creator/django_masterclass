@@ -1,0 +1,11 @@
+asgiref
+crispy-bootstrap5
+Django
+django-crispy-forms
+django-environ
+gunicorn
+psycopg2
+pytz
+sqlparse
+tzdata
+whitenoise
